@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+		<style>
+			body {
+				margin: 0;
+				padding: 12px;
+				background: #1a1a1a;
+				color: #fff;
+				font-family: Arial, sans-serif;
+				height: 100vh;
+				overflow: hidden;
+				display: flex;
+			}
+			#controls {
+				position: absolute;
+				right: 12px;
+				top: 12px;
+				bottom: 12px;
+				background: rgba(0, 0, 0, 0.8);
+				padding: 20px;
+				border-radius: 8px;
+				width: 250px;
+				display: flex;
+				flex-direction: column;
+			}
+			.control-group {
+				margin-bottom: 24px;
+			}
+			label {
+				display: block;
+				margin-bottom: 8px;
+				color: #ddd;
+				font-size: 13px;
+				font-weight: 500;
+			}
+			input[type="range"] {
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				height: 20px;
+			}
+			.value-display {
+				font-size: 12px;
+				color: #aaa;
+				position: absolute;
+				right: 20px;
+				margin-top: -24px;
+			}
+			.button-group {
+				display: flex;
+				gap: 10px;
+				margin-bottom: 24px;
+			}
+			button {
+				background: #4caf50;
+				border: none;
+				padding: 10px 16px;
+				color: white;
+				border-radius: 4px;
+				cursor: pointer;
+				flex: 1;
+				font-size: 13px;
+				font-weight: 500;
+			}
+			button:hover {
+				background: #45a049;
+			}
+			.stats {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 12px;
+				padding-top: 20px;
+				border-top: 1px solid #333;
+				margin-top: auto;
+			}
+			.stat-box {
+				background: rgba(255, 255, 255, 0.1);
+				padding: 10px 2px;
+				border-radius: 4px;
+				text-align: center;
+				min-width: 0;
+			}
+			.stat-label {
+				font-size: 10px;
+				color: #aaa;
+				margin-bottom: 4px;
+				font-weight: 500;
+				white-space: nowrap;
+			}
+			.stat-value {
+				font-size: 14px;
+				font-weight: bold;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.slider-container {
+				position: relative;
+				padding-right: 40px;
+				margin-top: 16px;
+			}
+			.controls-wrapper {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="controls">
+			<div class="controls-wrapper">
+				<div class="button-group">
+					<button id="debugToggle">Debug View</button>
+					<button id="resetSim">Reset</button>
+				</div>
+
+				<div class="control-group">
+					<label>Initial Population</label>
+					<div class="slider-container">
+						<input
+							type="range"
+							id="populationSlider"
+							min="10"
+							max="200"
+							step="5"
+							value="50" />
+						<span class="value-display">50</span>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label>Simulation Speed</label>
+					<div class="slider-container">
+						<input
+							type="range"
+							id="speedSlider"
+							min="0.1"
+							max="2"
+							step="0.1"
+							value="1" />
+						<span class="value-display">1x</span>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label>Food Spawn Rate</label>
+					<div class="slider-container">
+						<input
+							type="range"
+							id="foodRateSlider"
+							min="0.01"
+							max="0.2"
+							step="0.01"
+							value="0.05" />
+						<span class="value-display">0.05</span>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label>Poison Spawn Rate</label>
+					<div class="slider-container">
+						<input
+							type="range"
+							id="poisonRateSlider"
+							min="0.001"
+							max="0.05"
+							step="0.001"
+							value="0.01" />
+						<span class="value-display">0.01</span>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label>Mutation Rate</label>
+					<div class="slider-container">
+						<input
+							type="range"
+							id="mutationSlider"
+							min="0.001"
+							max="0.05"
+							step="0.001"
+							value="0.01" />
+						<span class="value-display">0.01</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="stats">
+				<div class="stat-box">
+					<div class="stat-label">POPULATION</div>
+					<div class="stat-value" id="populationCount">0</div>
+				</div>
+				<div class="stat-box">
+					<div class="stat-label">GENERATION</div>
+					<div class="stat-value" id="generationCount">1</div>
+				</div>
+				<div class="stat-box">
+					<div class="stat-label">AVG LIFESPAN</div>
+					<div class="stat-value" id="avgLifespan">0</div>
+				</div>
+			</div>
+		</div>
+		<script src="vehicle.js"></script>
+		<script src="sketch.js"></script>
+	</body>
+</html>
